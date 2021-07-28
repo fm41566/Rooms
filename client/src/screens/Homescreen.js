@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from "axios";
 import Room from '../components/Room';
+import Loader from 'react-spinners/HashLoader';
+import Error from "../components/Error";
 function Homescreen() {
 
     const [rooms, setrooms] = useState([])
@@ -24,19 +26,20 @@ function Homescreen() {
     }, [])
     return (
         <div className='container'>
-            <div className="row justify-content-center mt-5">
+            <div className="row justify-content-center mt-5 ">
                 {loading ?
-                    (<h1>Loading ...</h1>
-                    ) : error ? (<h1>Error</h1>) : (rooms.map(room => {
-
-                        return <div className="col-md-9 mt-2">
+                    (<Loader />
+                    ) : rooms.length > 1 ? (rooms.map((room) => {
+                        return <div className="col-md-9 mt-3">
                             <Room room={room} />
                         </div>
                     })
+                    ) : (
+                        <Error />
                     )}
             </div>
         </div>
     );
 }
 
-export default Homescreen
+export default Homescreen;
