@@ -9,16 +9,16 @@ function Homescreen() {
     useEffect(async () => {
 
         try {
-            setloading(true)
-            const data = (await axios.get('/api/rooms/getallrooms')).data
+            setloading(true);
+            const data = (await axios.get('/api/rooms/getallrooms')).data;
 
-            setrooms(data)
-            setloading(false)
+            setrooms(data);
+            setloading(false);
 
         } catch (error) {
             seterror(true)
-            console.log(error)
-            setloading(false)
+            console.log(error);
+            setloading(false);
         }
 
     }, [])
