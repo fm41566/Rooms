@@ -15,6 +15,7 @@ function Bookingscreen({ match }) {
 
 
     const totaldays = moment.duration(todate.diff(fromdate)).asDays() + 1
+    const totalamount = totaldays * room.rentperday
 
     useEffect(async () => {
 
@@ -64,7 +65,7 @@ function Bookingscreen({ match }) {
                                     <hr />
                                     <p>Total days :{totaldays}</p>
                                     <p>Rent per day {room.rentperday}</p>
-                                    <p>Total Amount</p>
+                                    <p>Total Amount : {totalamount}</p>
                                 </b>
                             </div>
                             <div style={{ float: 'right' }}>
