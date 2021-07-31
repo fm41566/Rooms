@@ -1,14 +1,10 @@
-
-// import { Mongoose } from "mongoose";
-
-
 const mongoose = require("mongoose");
 
 const bookingSchema = mongoose.Schema({
 
     room: {
-        type: String, required: : true
-},
+        type: String, required: true
+    },
     roomid: {
         type: String, required: true
     },

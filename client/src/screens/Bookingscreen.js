@@ -15,14 +15,15 @@ function Bookingscreen({ match }) {
 
 
     const totaldays = moment.duration(todate.diff(fromdate)).asDays() + 1
-    const totalamount = totaldays * room.rentperday
+    const [totalamount, settotalamount] = useState()
 
     useEffect(async () => {
 
         try {
             setloading(true)
-            const data = await (await axios.post("/api/rooms/getroombyid", { roomid: match.params.roomid })).data;
+            const data = (await axios.post("/api/rooms/getroombyid", { roomid: match.params.roomid })).data;
 
+            settotalamount(data.rentperday * totaldays)
             setroom(data)
             setloading(false);
 
@@ -32,6 +33,27 @@ function Bookingscreen({ match }) {
         }
 
     }, []);
+
+    async function bookRoom() {
+
+        const bookingDetails = {
+            room,
+            userid: JSON.parse(localStorage.getItem('currentUser'))._id,
+            fromdate,
+            todate,
+            totalamount,
+            totaldays
+
+        }
+
+        try {
+            const result = await axios.post('/api.bookings/bookroom', bookingDetails)
+        } catch (error) {
+
+
+        }
+
+    }
 
 
     return (
@@ -52,7 +74,7 @@ function Bookingscreen({ match }) {
                                 <hr />
 
                                 <b>
-                                    <p>Name : </p>
+                                    <p>Name :{JSON.parse(localStorage.getItem('currentUser')).name} </p>
                                     <p>From Date :{match.params.fromdate}</p>
                                     <p>To Date :{match.params.todate}</p>
                                     <p>Max Count : {room.maxcount}</p>
@@ -69,7 +91,7 @@ function Bookingscreen({ match }) {
                                 </b>
                             </div>
                             <div style={{ float: 'right' }}>
-                                <button className="btn btn-primary">Pay Now</button>
+                                <button className="btn btn-primary" onClick={bookRoom}>Pay Now</button>
                             </div>
 
                         </div>
