@@ -4,14 +4,14 @@ var mongoURL = 'mongodb+srv://mern:fjalkalimi.1@cluster0.ghlyh.mongodb.net/mern-
 
 mongoose.connect(mongoURL, { useUnifiedTopology: true, useNewUrlParser: true })
 
-var connection = mongoose.connection
+var dbconnect = mongoose.connection
 
-connection.on('error', () => {
-    console.log('Mongo DB Connection failed')
+dbconnect.on('error', () => {
+    console.log(`Mongo DB Connection Failed`);
 })
 
-connection.on('connected', () => {
-    console.log('Mongo DB Connection Successful')
+dbconnect.on('connected', () => {
+    console.log(`Mongo DB Connection Successfull`);
 })
 
 module.exports = mongoose
